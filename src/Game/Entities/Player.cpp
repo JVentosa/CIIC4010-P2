@@ -60,6 +60,8 @@ void Player::tick(){
 }
 
 void Player::render(){
+    ofSetColor(255);
+    ofDrawBitmapString(Player::getScore(),50,20);
     ofSetColor(256,256,256);
     // ofDrawRectangle(getBounds());
     if(facing == UP){
@@ -131,8 +133,16 @@ void Player::checkCollisions(){
     }
     for(Entity* entity:em->entities){
         if(collides(entity)){
-            if(dynamic_cast<Dot*>(entity) || dynamic_cast<BigDot*>(entity)){
+            if(dynamic_cast<Dot*>(entity))
+            {
                 entity->remove = true;
+                setScore(Player::getScore() + 5);  
+            }
+            if(dynamic_cast<BigDot*>(entity))
+            {
+                entity->remove = true;
+                setScore(Player::getScore() + 25);
+                //We need to add a timer of at least 10 seconds, for pacman can kill ghosts.
             }
         }
     }

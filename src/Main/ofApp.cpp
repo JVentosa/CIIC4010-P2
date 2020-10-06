@@ -31,7 +31,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 	if (currentState != nullptr)
-		currentState->render();
+	currentState->render();
 }
 
 //--------------------------------------------------------------

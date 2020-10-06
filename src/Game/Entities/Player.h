@@ -13,8 +13,8 @@ enum FACING {
 class Player: public Entity{
 
     private:
-        int health;
-        int score;
+        int health = 300;
+        int score = 0;
         bool canMove;
         int speed = 8;
         bool walking = false;
@@ -28,8 +28,8 @@ class Player: public Entity{
 
     public:
         Player(int, int, int , int, EntityManager*);
-        int getHealth();
-        int getScore();
+        int getHealth(){return this->health;}
+        int getScore(){return this->score;}
         void tick();
         void render();
         void keyPressed(int);
@@ -39,4 +39,7 @@ class Player: public Entity{
         void reset();
         void setFacing(FACING facing);
         void checkCollisions();
+
+        void setScore(int n){this->score = n;}
+        void setHealth(int n){this->health = n;}
 };
