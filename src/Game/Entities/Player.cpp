@@ -61,7 +61,7 @@ void Player::tick(){
 
 void Player::render(){
     ofSetColor(255);
-    ofDrawBitmapString(Player::getScore(),50,20);
+    ofDrawBitmapString("Score:" + to_string(Player::getScore()),50,20);
     ofSetColor(256,256,256);
     // ofDrawRectangle(getBounds());
     if(facing == UP){
@@ -89,6 +89,9 @@ void Player::keyPressed(int key){
             break;
         case 'd':
             setFacing(RIGHT);
+            break;
+        case 'g':
+            //Tengo que añadir el ghost spawnmer 
             break;
     }
 }
