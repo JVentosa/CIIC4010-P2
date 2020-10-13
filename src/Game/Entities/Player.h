@@ -39,6 +39,7 @@ class Player: public Entity{
         void reset();
         void setFacing(FACING facing);
         void checkCollisions();
+        void die();
 
         void setScore(int n){this->score = n;}
         void setHealth(int n){this->health = n;}

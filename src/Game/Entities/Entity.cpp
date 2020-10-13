@@ -5,6 +5,7 @@ Entity::Entity(int x, int y, int width, int height){
     this->y = y;
     this->width = width;
     this->height = height;
+    this->health = 300;
 }
 
 void Entity::tick(){

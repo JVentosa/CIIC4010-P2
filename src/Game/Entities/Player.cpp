@@ -2,6 +2,7 @@
 #include "EntityManager.h"
 #include "Dot.h"
 #include "BigDot.h"
+#include "Ghost.h"
 
 Player::Player(int x, int y, int width, int height, EntityManager* em) : Entity(x, y, width, height){
     sprite.load("images/pacman.png");
@@ -39,6 +40,19 @@ Player::Player(int x, int y, int width, int height, EntityManager* em) : Entity(
     this->em = em;
     
 }
+
+void Player::die(){
+    if(this->health > 0) {
+        this->health -= 100;
+        this->x = 312;
+        this->y = 624;
+        canMove = true;
+    }
+    // else if (this->health == 0) {
+    //   // DISPLAY START SCREEN WITH SCORE
+    // }
+}
+
 void Player::tick(){
     canMove = true;
     checkCollisions();
@@ -89,6 +103,12 @@ void Player::keyPressed(int key){
             break;
         case 'd':
             setFacing(RIGHT);
+            break;
+        case 'n':
+            health -= 100; // Decrease health by 1 when n is pressed
+            break;
+        case 'm':
+            health += 100; // Increase health by 1 when m is prissed
             break;
         case 'g':
             //Tengo que añadir el ghost spawnmer 
@@ -146,6 +166,10 @@ void Player::checkCollisions(){
                 entity->remove = true;
                 setScore(Player::getScore() + 25);
                 //We need to add a timer of at least 10 seconds, for pacman can kill ghosts.
+            }
+            if(dynamic_cast<Ghost*>(entity)) // Ghost collision
+             {
+                 die();
             }
         }
     }
