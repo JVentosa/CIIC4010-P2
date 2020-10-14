@@ -159,12 +159,18 @@ void Player::checkCollisions(){
             if(dynamic_cast<Dot*>(entity))
             {
                 entity->remove = true;
-                setScore(Player::getScore() + 5);  
+                setScore(Player::getScore() + 5);
+                mySound.setMultiPlay(true);
+                mySound.setSpeed(1.2);
+                mySound.load("pacman_chomp.wav");
+                mySound.play();
             }
             if(dynamic_cast<BigDot*>(entity))
             {
                 entity->remove = true;
                 setScore(Player::getScore() + 25);
+                mySound.load("pacman_eatfruit.wav");
+                mySound.play();
                 //We need to add a timer of at least 10 seconds, for pacman can kill ghosts.
             }
             if(dynamic_cast<Ghost*>(entity)) // Ghost collision
