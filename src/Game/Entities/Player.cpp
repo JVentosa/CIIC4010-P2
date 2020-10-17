@@ -3,6 +3,7 @@
 #include "Dot.h"
 #include "BigDot.h"
 #include "Ghost.h"
+#include "GhostSpawner.h"
 
 Player::Player(int x, int y, int width, int height, EntityManager* em) : Entity(x, y, width, height){
     sprite.load("images/pacman.png");
@@ -74,8 +75,58 @@ void Player::tick(){
 }
 
 void Player::render(){
+    if (Player::getHealth() <= 500)/*This switch is for show the player the life of pacman
+    and if pacman has more than five lifes is representated by a plus sign*/
+    {
+        switch (Player::getHealth())
+        {
+        case 500:
+            ofSetColor(255, 255, 0);
+            ofDrawCircle(800, 15, 10);
+            ofDrawCircle(825, 15, 10);
+            ofDrawCircle(850, 15, 10);
+            ofDrawCircle(875, 15, 10);
+            ofDrawCircle(900, 15, 10);
+            break;
+        case 400:
+            ofSetColor(255, 255, 0);
+            ofDrawCircle(800, 15, 10);
+            ofDrawCircle(825, 15, 10);
+            ofDrawCircle(850, 15, 10);
+            ofDrawCircle(875, 15, 10);
+            break;
+        case 300:
+            ofSetColor(255, 255, 0);
+            ofDrawCircle(800, 15, 10);
+            ofDrawCircle(825, 15, 10);
+            ofDrawCircle(850, 15, 10);
+            break;
+        case 200:
+            ofSetColor(255, 255, 0);
+            ofDrawCircle(800, 15, 10);
+            ofDrawCircle(825, 15, 10);
+            break;
+        case 100:
+            ofSetColor(255, 255, 0);
+            ofDrawCircle(800, 15, 10);
+            break;
+        }
+    }
+    else
+    {
+        ofSetColor(255, 255, 0);
+        ofDrawCircle(800, 15, 10);
+        ofDrawCircle(825, 15, 10);
+        ofDrawCircle(850, 15, 10);
+        ofDrawCircle(875, 15, 10);
+        ofDrawCircle(900, 15, 10);
+        ofSetColor(255,255,0);
+        ofDrawLine(920,10,920,20);
+        ofDrawLine(915,15,925,15);
+    }
     ofSetColor(255);
     ofDrawBitmapString("Score:" + to_string(Player::getScore()),50,20);
+    ofDrawBitmapString("Health:",730,20);
     ofSetColor(256,256,256);
     // ofDrawRectangle(getBounds());
     if(facing == UP){
@@ -90,8 +141,10 @@ void Player::render(){
     }
 }
 
-void Player::keyPressed(int key){
-    switch(key){
+void Player::keyPressed(int key)
+{
+    switch(key)
+    {
         case 'w':
             setFacing(UP);
             break;
@@ -105,14 +158,16 @@ void Player::keyPressed(int key){
             setFacing(RIGHT);
             break;
         case 'n':
-            health -= 100; // Decrease health by 1 when n is pressed
+            if (Player::getHealth() > 0 )
+            {
+                health -= 100; // Increase health by 1 when m is prissed
+            }
             break;
         case 'm':
             health += 100; // Increase health by 1 when m is prissed
             break;
-        case 'g':
+        //case 'g':
             //Tengo que añadir el ghost spawnmer 
-            break;
     }
 }
 
@@ -171,6 +226,8 @@ void Player::checkCollisions(){
                 setScore(Player::getScore() + 25);
                 mySound.load("pacman_eatfruit.wav");
                 mySound.play();
+                mySound2.load("super-mario-bros-nes-music-star-theme-cut-mp3.mp3");
+                mySound2.play();
                 //We need to add a timer of at least 10 seconds, for pacman can kill ghosts.
             }
             if(dynamic_cast<Ghost*>(entity)) // Ghost collision

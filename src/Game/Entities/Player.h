@@ -13,8 +13,8 @@ enum FACING {
 class Player: public Entity{
 
     private:
-        bool playingSound = false;
-        int health = 300;
+        bool GhostImmortality = true;
+        int health = 500;
         int score = 0;
         bool canMove;
         int speed = 2;
@@ -31,7 +31,6 @@ class Player: public Entity{
         Player(int, int, int , int, EntityManager*);
         int getHealth(){return this->health;}
         int getScore(){return this->score;}
-        bool getSound(){return this->playingSound;}
         void tick();
         void render();
         void keyPressed(int);
@@ -43,15 +42,8 @@ class Player: public Entity{
         void checkCollisions();
         void die();
         ofSoundPlayer   mySound;
+        ofSoundPlayer   mySound2;
 
         void setScore(int n){this->score = n;}
         void setHealth(int n){this->health = n;}
-        void setSound()
-        {
-            if(this->playingSound == true)
-            {
-                this->playingSound = false;
-            }
-            else this->playingSound = true;
-        }
 };
