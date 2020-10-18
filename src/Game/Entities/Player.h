@@ -13,7 +13,6 @@ enum FACING {
 class Player: public Entity{
 
     private:
-        bool GhostImmortality = true;
         int health = 500;
         int score = 0;
         bool canMove;
