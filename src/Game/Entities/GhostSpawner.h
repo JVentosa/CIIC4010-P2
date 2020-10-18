@@ -6,5 +6,5 @@ class GhostSpawner : public Entity, public EntityManager
 {
     public:
     EntityManager* entity;
-    GhostSpawner(int, int, int , int, EntityManager*,ofImage,int);
+    GhostSpawner(int, int, int , int,ofImage,int);
 };

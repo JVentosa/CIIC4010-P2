@@ -1,7 +1,7 @@
 #include "GhostSpawner.h"
 #include "Ghost.h"
 
-GhostSpawner::GhostSpawner(int x, int y, int width, int height, EntityManager* entity,ofImage spriteSheet,int color) : Entity(x, y, width, height)
+GhostSpawner::GhostSpawner(int x, int y, int width, int height,ofImage spriteSheet,int color) : Entity(x, y, width, height)
 {
     switch(color)
     {
