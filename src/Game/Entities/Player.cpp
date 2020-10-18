@@ -167,12 +167,14 @@ void Player::keyPressed(int key)
             health += 100; // Increase health by 1 when m is prissed
             break;
         case 'p':
-            mySound2.load("super-mario-bros-nes-music-star-theme-cut-mp3.mp3");
+            mySound2.load("super-mario-bros-nes-music-star-theme-cut-mp3.mp3");//for test ghost death
             mySound2.play();
             break;
         case 'g':
-            Ghost* en = new Ghost( x, y,width,height,sprite);
+            GhostSpawner* en = new GhostSpawner(503, 368,Entity::width,Entity::height,entity,sprite,Player::color);
             em->entities.push_back(en);
+            if(color == 4) color = 0;
+            color += 1;
             break;
             //Tengo que añadir el ghost spawnmer 
     }
@@ -237,7 +239,7 @@ void Player::checkCollisions(){
                 mySound2.play();
                 //We need to add a timer of at least 10 seconds, for pacman can kill ghosts.
             }
-            if(dynamic_cast<Ghost*>(entity)) // Ghost collision
+            if(dynamic_cast<Ghost*>(entity) || dynamic_cast<GhostSpawner*>(entity)) // Ghost collision
             {
                 if(mySound2.isPlaying())
                 {

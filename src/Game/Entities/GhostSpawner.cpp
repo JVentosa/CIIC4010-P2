@@ -1,12 +1,25 @@
 #include "GhostSpawner.h"
 #include "Ghost.h"
 
-GhostSpawner::GhostSpawner(int x, int y, int width, int height, EntityManager* entity,ofImage spriteSheet) : Entity(x, y, width, height)
+GhostSpawner::GhostSpawner(int x, int y, int width, int height, EntityManager* entity,ofImage spriteSheet,int color) : Entity(x, y, width, height)
 {
-    this->entity = entity;
+    switch(color)
+    {
+        case 1:
+            sprite.load("images/Background.png");
+            sprite.cropFrom(sprite, 455, 95,16, 16);
+            break;
+        case 2:
+            sprite.load("images/Background.png");
+            sprite.cropFrom(sprite, 455, 111,16, 16);
+            break;
+        case 3:
+            sprite.load("images/Background.png");
+            sprite.cropFrom(sprite, 455, 79,16, 16);
+            break;
+        case 4:
+            sprite.load("images/Background.png");
+            sprite.cropFrom(sprite, 455, 63,16, 16);
+            break;
+    }
 };
-void GhostSpawner::Spawner()
-{
-    Ghost* ghost = new Ghost(x,y,width,height,sprite);
-    entity->entities.push_back(ghost);
-}

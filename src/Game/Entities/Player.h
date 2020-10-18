@@ -13,6 +13,7 @@ enum FACING {
 class Player: public Entity{
 
     private:
+        int color = 1;
         int health = 500;
         int score = 0;
         bool canMove;
@@ -25,6 +26,7 @@ class Player: public Entity{
         Animation *walkLeft;
         Animation *walkRight;
         EntityManager* em;
+        EntityManager* entity;
 
     public:
         Player(int, int, int , int, EntityManager*);
