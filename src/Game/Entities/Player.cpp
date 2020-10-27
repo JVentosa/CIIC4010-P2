@@ -237,7 +237,8 @@ void Player::checkCollisions(){
                 mySound.play();
                 mySound2.load("super-mario-bros-nes-music-star-theme-cut-mp3.mp3");
                 mySound2.play();
-                //We need to add a timer of at least 10 seconds, for pacman can kill ghosts.
+                        //Timer to make ghosts edible
+                        //Make ghosts edible
             }
             if(dynamic_cast<Ghost*>(entity) || dynamic_cast<GhostSpawner*>(entity)) // Ghost collision
             {
@@ -248,6 +249,9 @@ void Player::checkCollisions(){
                 }
                 else die();
             }
+                // Allow pacman to eat ghost on collision during edible phase
+                 //TIMER TO MAKE GHOSTS RESPAWN AFTER COLLISION DURING EDIBLE PHASE 
+
         }
     }
     

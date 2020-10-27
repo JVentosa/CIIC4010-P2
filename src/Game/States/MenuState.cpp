@@ -1,8 +1,11 @@
 #include "MenuState.h"
 
 MenuState::MenuState() {
+	background.load("images/1726777.jpg");
 	startButton = new Button(ofGetWidth()/2, ofGetHeight()/2, 64, 50, "Start");
 }
+
+//More or less the same as update
 void MenuState::tick() {
 	startButton->tick();
 	if(startButton->wasPressed()){
@@ -12,7 +15,8 @@ void MenuState::tick() {
 	}
 }
 void MenuState::render() {
-	ofSetBackgroundColor(230, 230, 250);
+	ofSetColor(255);
+	background.draw(0,0,1024,768);
 	startButton->render();
 }
 

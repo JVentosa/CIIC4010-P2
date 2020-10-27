@@ -10,7 +10,7 @@ void Map::tick(){
 
 }
 void Map::render(){
-    ofSetBackgroundColor(0, 0, 0);
+	ofSetBackgroundColor(0, 0, 0);
 	entityManager->render();
 	player->render();
 

@@ -2,8 +2,8 @@
 Button::Button(){
    this->xPos = ofGetWidth()/2;
     this->yPos = ofGetHeight()/2;
-    this->width = 64;
-    this->height = 20; 
+    this->width = 128;
+    this->height = 40; 
 }
 Button::Button(int xPos, int yPos, int width, int height, string buttonText){
     this->xPos = xPos;
@@ -34,7 +34,7 @@ void Button::mousePressed(int x, int y){
 }
 
 void Button::render(){
-    ofSetColor(0);
+    ofSetColor(200,125,125);
     ofDrawBitmapString(buttonText, xPos+width/2, yPos+height/2);
 }
 
