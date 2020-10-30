@@ -6,8 +6,19 @@ GameState::GameState() {
 	map = MapBuilder().createMap(mapImage);
 }
 void GameState::tick() {
+	health = map->getPlayer()->getHealth();
+	if(health == 0){
+		finalScore = getScore();
+		setNextState("GameOver");
+		setFinished(true);
+		health = 500;
+	}
 	map->tick();
 }
+int GameState::getScore(){
+	return finalScore;
+}
+
 void GameState::render() {
 	map->render();
 }
@@ -26,5 +37,5 @@ void GameState::keyReleased(int key){
 
 void GameState::reset(){
 	setFinished(false);
-	setNextState("");
+	setNextState("Game");
 }

@@ -31,10 +31,18 @@ void Button::mousePressed(int x, int y){
         pressed = true;
         pressedCounter = 10;
     }
+    else {
+        pressed = false;
+    }
 }
 
 void Button::render(){
-    ofSetColor(200,125,125);
+    ofFill();
+    ofSetColor(255, 113, 181);
+    ofBeginShape();
+    ofDrawRectangle(975/2, 768/2, 50, 150, 50);
+    ofEndShape();
+    ofSetColor(0,0,0);
     ofDrawBitmapString(buttonText, xPos+width/2, yPos+height/2);
 }
 

@@ -2,7 +2,7 @@
 
 void EntityManager::tick(){
     std::vector<int> toRemove;
-    for(int i=0;i<entities.size();i++){
+    for(unsigned int i=0;i<entities.size();i++){
         if(!entities[i]->remove){
             entities[i]->tick();
 

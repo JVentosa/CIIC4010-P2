@@ -1,3 +1,5 @@
+#pragma once
+
 #include "ofMain.h" 
 #include "Map.h"
 #include "Dot.h"

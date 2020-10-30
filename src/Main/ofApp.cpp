@@ -8,7 +8,8 @@ void ofApp::setup(){
 	//States
 	menuState = new MenuState();
 	gameState = new GameState();
-	// Initial State
+	overState = new OverState();
+	// Initial 
 	currentState = menuState;
 }
 
@@ -21,6 +22,8 @@ void ofApp::update(){
 				currentState = menuState;
 			}else if(currentState->getNextState() == "Game"){
 				currentState = gameState;
+			}else if(currentState->getNextState() == "GameOver"){
+				currentState = overState;
 			}
 			currentState->reset();
 		}

@@ -49,9 +49,6 @@ void Player::die(){
         this->y = 624;
         canMove = true;
     }
-    // else if (this->health == 0) {
-    //   // DISPLAY START SCREEN WITH SCORE
-    // }
 }
 
 void Player::tick(){

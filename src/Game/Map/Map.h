@@ -1,7 +1,10 @@
+#pragma once
+
 #include "Player.h"
 
 class Map{
     public:
+      Player* getPlayer();
       Map(EntityManager*);
       void addBlock(Block*);
       void addEntity(Entity*);

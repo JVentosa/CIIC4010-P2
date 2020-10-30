@@ -29,8 +29,10 @@ class Player: public Entity{
 
     public:
         Player(int, int, int , int, EntityManager*);
-        int getHealth(){return this->health;}
-        int getScore(){return this->score;}
+        int getHealth(){return health;}
+        int getScore(){return score;}
+       
+    
         void tick();
         void render();
         void keyPressed(int);
