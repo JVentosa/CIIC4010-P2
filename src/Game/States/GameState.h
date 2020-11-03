@@ -20,6 +20,7 @@ class GameState: public State{
 	
 
 	private:
+		ofSoundPlayer dying;
 		ofImage mapImage;
 		Map* map;
 };

@@ -5,11 +5,10 @@
 
 
 class GhostSpawner : public Ghost, public EntityManager
-{
+{  
+    public:
     Animation *Scared;
     Animation *NotScared;
-    public:
-    EntityManager* entity;
     void render();
     GhostSpawner(int, int, int , int,ofImage,int);
 };

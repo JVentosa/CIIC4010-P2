@@ -1,6 +1,6 @@
 #include "GhostSpawner.h"
 
-GhostSpawner::GhostSpawner(int x, int y, int width, int height,ofImage spriteSheet,int color) : Ghost(x, y, width, height,spriteSheet)
+GhostSpawner::GhostSpawner(int x, int y, int width, int height,ofImage spriteSheet,int color) : Ghost(x, y, width, height, spriteSheet, em)
 {
     vector <ofImage> NotScaredVector;
     vector <ofImage> ScaredVector;
