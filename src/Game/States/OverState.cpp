@@ -2,10 +2,15 @@
 
 OverState::OverState() {
 	background.load("images/pacdead.jpg");
-	startButton = new Button(ofGetWidth()/2, ofGetHeight()/2, 64, 50, "Start Over");
+	startButton = new Button(ofGetWidth()/2, ofGetHeight()/2, 64, 50, "Wanna play again?");
 }
 
 void OverState::tick() {
+	startButton->tick();
+	if(startButton->wasPressed()){
+		setNextState("Game");
+		setFinished(true);
+	}
 }
 
 void OverState::setFinalScore(int score){

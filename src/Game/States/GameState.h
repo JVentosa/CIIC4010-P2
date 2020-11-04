@@ -12,11 +12,13 @@ class GameState: public State{
 		void keyPressed(int key);
 		void mousePressed(int x, int y, int button);
 		void keyReleased(int key);
-		int health;
-		int score;
-		int finalScore;
-		int getHealth();
-		int getScore();
+		// int health;
+		// int restarthealth;
+		// int score;
+		// int finalScore;
+		// int getHealth();
+		// int getScore();
+		
 	
 
 	private:

@@ -18,6 +18,9 @@ class Ghost: public Entity{
     Animation *NotScared;
     public:
     EntityManager* em;
+    void tick();
+    void setGfacing(GFace gfacing);
+    void checkCollisions();
     void render();
         Ghost(int, int, int, int, ofImage, EntityManager*);
         
@@ -29,16 +32,12 @@ class Ghost: public Entity{
             else Mortal = false;
         }
 
-    private:
-        // Movement { }
+    private:   // Movement { }
     bool canghostmove;
     GFace gfacing = UPGhost;
-    int speed = 2;
-    int facing = round(ofRandom(0,3));
+    int speedghost = 2;
 
-    void tick();
-    void setGfacing(GFace gfacing);
-    void checkCollisions();
+
 
 };
 

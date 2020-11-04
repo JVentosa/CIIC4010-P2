@@ -6,20 +6,19 @@ GameState::GameState() {
 	map = MapBuilder().createMap(mapImage);
 }
 void GameState::tick() {
-	health = map->getPlayer()->getHealth();
-	if(health == 0){
+	if(map->getPlayer()->getHealth() == 0){
 		dying.load("pacmandying.mp3");
 		dying.play();
-		finalScore = getScore();
+		map->getPlayer()->getScore();
 		setNextState("GameOver");
 		setFinished(true);
-		health = 500;
+		map->getPlayer()->setHealth(500);
 	}
 	map->tick();
 }
-int GameState::getScore(){
-	return finalScore;
-}
+// int GameState::getScore(){
+// 	return finalScore;
+// }
 
 void GameState::render() {
 	map->render();

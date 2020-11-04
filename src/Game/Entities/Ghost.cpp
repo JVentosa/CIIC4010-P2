@@ -1,71 +1,86 @@
 #include "Ghost.h"
-
-Ghost::Ghost(int x, int y, int width, int height, ofImage spriteSheet, EntityManager* em): Entity(x, y, width, height){
+#include "EntityManager.h"
+Ghost::Ghost(int x, int y, int width, int height, ofImage spriteSheet, EntityManager *em) : Entity(x, y, width, height)
+{
     sprite.load("images/Background.png");
-    sprite.cropFrom(sprite, 455, 95,16, 16);
-    vector <ofImage> NotScaredVector;
-    for(int i = 0; i < 7; i++)
+    sprite.cropFrom(sprite, 455, 95, 16, 16);
+    vector<ofImage> NotScaredVector;
+    for (int i = 0; i < 7; i++)
     {
         sprite.load("images/Background.png");
-        sprite.cropFrom(sprite, 455 + 14*i, 64,16, 16);
+        sprite.cropFrom(sprite, 455 + 14 * i, 64, 16, 16);
         NotScaredVector.push_back(sprite);
     }
-    vector <ofImage> ScaredVector;
-    for(int i = 0; i < 3; i++)
+    vector<ofImage> ScaredVector;
+    for (int i = 0; i < 3; i++)
     {
         sprite.load("images/Background.png");
-        sprite.cropFrom(sprite, 583 + 14*i, 95,16, 16);
+        sprite.cropFrom(sprite, 583 + 14 * i, 95, 16, 16);
         ScaredVector.push_back(sprite);
     }
     sprite.load("images/Background.png");
-    sprite.cropFrom(sprite, 455, 95,16, 16);
-    Scared = new Animation(1,ScaredVector);
-    NotScared = new Animation(1,NotScaredVector);
+    sprite.cropFrom(sprite, 455, 95, 16, 16);
+    Scared = new Animation(1, ScaredVector);
+    NotScared = new Animation(1, NotScaredVector);
 }
 
 void Ghost::render()
 {
-    if(getMortal() == false)
+    if (getMortal() == false)
     {
         NotScared->getCurrentFrame().draw(x, y, width, height);
     }
-    else 
+    else
     {
         Scared->getCurrentFrame().draw(x, y, width, height);
     }
 }
 
-void Ghost::tick(){
+void Ghost::tick()
+{
     canghostmove = true;
     checkCollisions();
-    if(canghostmove){
-        if(gfacing == DOWNGhost){
-            y += speed;
+    if (canghostmove)
+    {
+        if (gfacing == DOWNGhost)
+        {
+            y += speedghost;
         }
-        else if(gfacing == UPGhost){
-            y -= speed;
+        else if (gfacing == UPGhost)
+        {
+            y -= speedghost;
         }
-        else if(gfacing == LEFTGhost){
-            x -= speed;
+        else if (gfacing == LEFTGhost)
+        {
+            x -= speedghost;
         }
-        else if(gfacing == RIGHTGhost){
-            x += speed;
+        else if (gfacing == RIGHTGhost)
+        {
+            x += speedghost;
         }
     }
 }
 
-void Ghost::setGfacing(GFace gfacing){
+void Ghost::setGfacing(GFace gfacing)
+{
     this->gfacing = gfacing;
 }
 
-void Ghost::checkCollisions(){
-    for(Block* block: em->blocks){
-        switch(gfacing){
-            case UPGhost:
-                if(this->getBounds(x, y-speed).intersects(block->getBounds())){
-                    canghostmove = false;
-            if(facing != 0){
-                switch(facing){
+void Ghost::checkCollisions()
+{
+    for (Block* block: em->blocks)
+    {
+        switch (gfacing)
+        {
+        case UPGhost:
+            if (this->getBounds(x, y - speedghost).intersects(block->getBounds()))
+            {
+                int facing = round(ofRandom(0,3));
+                canghostmove = false;
+                if (facing != 0)
+                {
+                    switch (facing)
+                    {
                     case 0:
                         setGfacing(UPGhost);
                         canghostmove = false;
@@ -76,22 +91,27 @@ void Ghost::checkCollisions(){
                         break;
                     case 2:
                         setGfacing(LEFTGhost);
-                        canghostmove = false;
+                        //canghostmove = false;
                         break;
                     case 3:
                         setGfacing(RIGHTGhost);
-                        canghostmove = false;
+                        //canghostmove = false;
                         break;
                     default:
                         break;
                     }
                 }
             }
-            case DOWNGhost:
-                if(this->getBounds(x, y-speed).intersects(block->getBounds())){
-                    canghostmove = false;
-            if(facing != 1){
-                switch(facing){
+            break;
+        case DOWNGhost:
+            if (this->getBounds(x, y+speedghost).intersects(block->getBounds()))
+            {
+                int facing = round(ofRandom(0,3));
+                canghostmove = false;
+                if (facing != 1)
+                {
+                    switch (facing)
+                    {
                     case 0:
                         setGfacing(UPGhost);
                         canghostmove = false;
@@ -102,30 +122,35 @@ void Ghost::checkCollisions(){
                         break;
                     case 2:
                         setGfacing(LEFTGhost);
-                        canghostmove = false;
+                        //canghostmove = false;
                         break;
                     case 3:
                         setGfacing(RIGHTGhost);
-                        canghostmove = false;
+                        //canghostmove = false;
                         break;
 
                     default:
                         break;
+                    }
                 }
             }
-        }
-            case LEFTGhost:
-                if(this->getBounds(x, y-speed).intersects(block->getBounds())){
-                    canghostmove = false;
-            if(facing != 2){
-                switch(facing){
+            break;
+        case LEFTGhost:
+            if (this->getBounds(x, y - speedghost).intersects(block->getBounds()))
+            {
+                int facing = round(ofRandom(0,3));
+                canghostmove = false;
+                if (facing != 2)
+                {
+                    switch (facing)
+                    {
                     case 0:
                         setGfacing(UPGhost);
-                        canghostmove = false;
+                        //canghostmove = false;
                         break;
                     case 1:
                         setGfacing(DOWNGhost);
-                        canghostmove = false;
+                        //canghostmove = false;
                         break;
                     case 2:
                         setGfacing(LEFTGhost);
@@ -140,18 +165,23 @@ void Ghost::checkCollisions(){
                     }
                 }
             }
-            case RIGHTGhost:
-                if(this->getBounds(x, y-speed).intersects(block->getBounds())){
-                    canghostmove = false;
-            if(facing != 3){
-                switch(facing){
+            break;
+        case RIGHTGhost:
+            if (this->getBounds(x, y - speedghost).intersects(block->getBounds()))
+            {
+                int facing = round(ofRandom(0,3));
+                canghostmove = false;
+                if (facing != 3)
+                {
+                    switch (facing)
+                    {
                     case 0:
                         setGfacing(UPGhost);
-                        canghostmove = false;
+                        //canghostmove = false;
                         break;
                     case 1:
                         setGfacing(DOWNGhost);
-                        canghostmove = false;
+                        //canghostmove = false;
                         break;
                     case 2:
                         setGfacing(LEFTGhost);
