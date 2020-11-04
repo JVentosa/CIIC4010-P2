@@ -168,7 +168,7 @@ void Player::keyPressed(int key)
             mySound2.play();
             break;
         case 'g':
-            GhostSpawner* en = new GhostSpawner(504, 368,Entity::width,Entity::height,sprite,Player::color);
+            GhostSpawner* en = new GhostSpawner(504, 368, width, height, sprite, color, em);
             em->entities.push_back(en);
             if(color == 4) color = 0;
             color += 1;

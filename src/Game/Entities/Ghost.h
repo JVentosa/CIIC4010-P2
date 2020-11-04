@@ -20,7 +20,7 @@ class Ghost: public Entity{
     EntityManager* em;
     void tick();
     void setGfacing(GFace gfacing);
-    void checkCollisions();
+    void checkCollisionsGhost();
     void render();
         Ghost(int, int, int, int, ofImage, EntityManager*);
         
@@ -32,7 +32,8 @@ class Ghost: public Entity{
             else Mortal = false;
         }
 
-    private:   // Movement { }
+    private: 
+    // Movement { }
     bool canghostmove;
     GFace gfacing = UPGhost;
     int speedghost = 2;

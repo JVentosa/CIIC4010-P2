@@ -9,16 +9,16 @@ void GameState::tick() {
 	if(map->getPlayer()->getHealth() == 0){
 		dying.load("pacmandying.mp3");
 		dying.play();
-		map->getPlayer()->getScore();
+		finalScore = map->getPlayer()->getScore();
 		setNextState("GameOver");
 		setFinished(true);
 		map->getPlayer()->setHealth(500);
 	}
 	map->tick();
 }
-// int GameState::getScore(){
-// 	return finalScore;
-// }
+int GameState::getScore(){
+	return finalScore;
+}
 
 void GameState::render() {
 	map->render();

@@ -10,6 +10,7 @@ void OverState::tick() {
 	if(startButton->wasPressed()){
 		setNextState("Game");
 		setFinished(true);
+		score = 0;
 	}
 }
 

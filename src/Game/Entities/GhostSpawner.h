@@ -4,11 +4,11 @@
 #include "Ghost.h"
 
 
-class GhostSpawner : public Ghost, public EntityManager
+class GhostSpawner : public Ghost
 {  
     public:
     Animation *Scared;
     Animation *NotScared;
     void render();
-    GhostSpawner(int, int, int , int,ofImage,int);
+    GhostSpawner(int, int, int , int,ofImage,int, EntityManager*);
 };
