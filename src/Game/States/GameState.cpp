@@ -9,10 +9,10 @@ void GameState::tick() {
 	if(map->getPlayer()->getHealth() == 0){
 		dying.load("pacmandying.mp3");
 		dying.play();
-		finalScore = map->getPlayer()->getScore();
 		setNextState("GameOver");
 		setFinished(true);
 		map->getPlayer()->setHealth(500);
+		map->getPlayer()->setScore(0);
 	}
 	map->tick();
 }

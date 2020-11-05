@@ -2,7 +2,7 @@
 
 OverState::OverState() {
 	background.load("images/pacdead.jpg");
-	startButton = new Button(ofGetWidth()/2, ofGetHeight()/2, 64, 50, "Wanna play again?");
+	startButton = new Button(ofGetWidth()/2, ofGetHeight()/2, 64, 50, "Try again!");
 }
 
 void OverState::tick() {

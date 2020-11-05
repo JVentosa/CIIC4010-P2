@@ -40,10 +40,16 @@ Ghost::Ghost(int x, int y, int width, int height, ofImage spriteSheet, EntityMan
     sprite.load("images/Background.png");
     sprite.cropFrom(sprite, 455, 95, 16, 16);
     Scared = new Animation(1, ScaredVector);
+<<<<<<< HEAD
     NotScaredUP = new Animation(5, NotScaredVectorUp);
     NotScaredDown= new Animation(5, NotScaredVectorDown);
     NotScaredLeft = new Animation(5, NotScaredVectorLeft);
     NotScaredRight = new Animation(5, NotScaredVectorRight);
+=======
+    NotScared = new Animation(1, NotScaredVector);
+
+    this->em=em;
+>>>>>>> Bugged-Ghost-Movement
 }
 
  void Ghost::render()
