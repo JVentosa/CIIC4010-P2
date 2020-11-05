@@ -40,16 +40,15 @@ Ghost::Ghost(int x, int y, int width, int height, ofImage spriteSheet, EntityMan
     sprite.load("images/Background.png");
     sprite.cropFrom(sprite, 455, 95, 16, 16);
     Scared = new Animation(1, ScaredVector);
-<<<<<<< HEAD
+
     NotScaredUP = new Animation(5, NotScaredVectorUp);
     NotScaredDown= new Animation(5, NotScaredVectorDown);
     NotScaredLeft = new Animation(5, NotScaredVectorLeft);
     NotScaredRight = new Animation(5, NotScaredVectorRight);
-=======
-    NotScared = new Animation(1, NotScaredVector);
+
+
 
     this->em=em;
->>>>>>> Bugged-Ghost-Movement
 }
 
  void Ghost::render()
@@ -83,7 +82,7 @@ Ghost::Ghost(int x, int y, int width, int height, ofImage spriteSheet, EntityMan
 void Ghost::tick()
 {
     canghostmove = true;
-    //checkCollisions();
+    checkCollisions();
     if (canghostmove)
     {
         if (faze == DOWNGhost)
@@ -109,159 +108,133 @@ void Ghost::tick()
     }
 }
 
-void Ghost::checkCollisions(){
-    for(Block* blockis: em->blocks){
-        switch(faze){
-            case UPGhost:
-                if(this->getBounds(x, y-speedghost).intersects(blockis->getBounds())){
-                    canghostmove = false;
+
+
+
+
+
+void Ghost::checkCollisions()
+{
+    for (Block* block: em->blocks)
+    {
+        switch (faze)
+        {
+        case UPGhost:
+            if (this->getBounds(x, y - speedghost).intersects(block->getBounds()))
+            {
+                int faze = round(ofRandom(0,3));
+                canghostmove = false;
+                if (faze != 0)
+                {
+                    switch (faze)
+                    {
+                    case 0:
+                        setfaze(UPGhost);
+                        break;
+                    case 1:
+                        setfaze(DOWNGhost);
+                        canghostmove = false;
+                        break;
+                    case 2:
+                        setfaze(LEFTGhost);
+                        break;
+                    case 3:
+                        setfaze(RIGHTGhost);
+                        break;
+                    default:
+                        break;
+                    }
                 }
-                break;
-            case DOWNGhost:
-                if(this->getBounds(x, y+speedghost).intersects(blockis->getBounds())){
-                    canghostmove = false;
+            }
+            break;
+        case DOWNGhost:
+            if (this->getBounds(x, y+speedghost).intersects(block->getBounds()))
+            {
+                int faze = round(ofRandom(0,3));
+                canghostmove = false;
+                if (faze != 1)
+                {
+                    switch (faze)
+                    {
+                    case 0:
+                        setfaze(UPGhost);
+                        canghostmove = false;
+                        break;
+                    case 1:
+                        setfaze(DOWNGhost);
+                        canghostmove = false;
+                        break;
+                    case 2:
+                        setfaze(LEFTGhost);
+                        break;
+                    case 3:
+                        setfaze(RIGHTGhost);
+                        break;
+
+                    default:
+                        break;
+                    }
                 }
-                break;
-            case LEFTGhost:
-                if(this->getBounds(x-speedghost, y).intersects(blockis->getBounds())){
-                    canghostmove = false;
+            }
+            break;
+        case LEFTGhost:
+            if (this->getBounds(x-speedghost, y).intersects(block->getBounds()))
+            {
+                int faze = round(ofRandom(0,3));
+                canghostmove = false;
+                if (faze != 2)
+                {
+                    switch (faze)
+                    {
+                    case 0:
+                        setfaze(UPGhost);
+                        break;
+                    case 1:
+                        setfaze(DOWNGhost);
+                        break;
+                    case 2:
+                        setfaze(LEFTGhost);
+                        canghostmove = false;
+                        break;
+                    case 3:
+                        setfaze(RIGHTGhost);
+                        canghostmove = false;
+                        break;
+                    default:
+                        break;
+                    }
                 }
-                break;
-            case RIGHTGhost:
-                if(this->getBounds(x+speedghost, y).intersects(blockis->getBounds())){
-                    canghostmove = false;
+            }
+            break;
+        case RIGHTGhost:
+            if (this->getBounds(x + speedghost, y).intersects(block->getBounds()))
+            {
+                int faze= round(ofRandom(0,3));
+                canghostmove = false;
+                if (faze != 3)
+                {
+                    switch (faze)
+                    {
+                    case 0:
+                        setfaze(UPGhost);
+                        break;
+                    case 1:
+                        setfaze(DOWNGhost);
+                        break;
+                    case 2:
+                        setfaze(LEFTGhost);
+                        canghostmove = false;
+                        break;
+                    case 3:
+                        setfaze(RIGHTGhost);
+                        canghostmove = false;
+                        break;
+                    default:
+                        break;
+                    }
                 }
-                break;
+            }
+            break;
         }
     }
 }
-
-
-
-
-
-// void Ghost::checkCollisions()
-// {
-//     for (Block* block: em->blocks)
-//     {
-//         switch (faze)
-//         {
-//         case UPGhost:
-//             if (this->getBounds(x, y - speedghost).intersects(block->getBounds()))
-//             {
-//                 int faze = round(ofRandom(0,3));
-//                 canghostmove = false;
-//                 if (faze != 0)
-//                 {
-//                     switch (faze)
-//                     {
-//                     case 0:
-//                         setfaze(UPGhost);
-//                         break;
-//                     case 1:
-//                         setfaze(DOWNGhost);
-//                         canghostmove = false;
-//                         break;
-//                     case 2:
-//                         setfaze(LEFTGhost);
-//                         break;
-//                     case 3:
-//                         setfaze(RIGHTGhost);
-//                         break;
-//                     default:
-//                         break;
-//                     }
-//                 }
-//             }
-//             break;
-//         case DOWNGhost:
-//             if (this->getBounds(x, y+speedghost).intersects(block->getBounds()))
-//             {
-//                 int faze = round(ofRandom(0,3));
-//                 canghostmove = false;
-//                 if (faze != 1)
-//                 {
-//                     switch (faze)
-//                     {
-//                     case 0:
-//                         setfaze(UPGhost);
-//                         canghostmove = false;
-//                         break;
-//                     case 1:
-//                         setfaze(DOWNGhost);
-//                         canghostmove = false;
-//                         break;
-//                     case 2:
-//                         setfaze(LEFTGhost);
-//                         break;
-//                     case 3:
-//                         setfaze(RIGHTGhost);
-//                         break;
-
-//                     default:
-//                         break;
-//                     }
-//                 }
-//             }
-//             break;
-//         case LEFTGhost:
-//             if (this->getBounds(x-speedghost, y).intersects(block->getBounds()))
-//             {
-//                 int faze = round(ofRandom(0,3));
-//                 canghostmove = false;
-//                 if (faze != 2)
-//                 {
-//                     switch (faze)
-//                     {
-//                     case 0:
-//                         setfaze(UPGhost);
-//                         break;
-//                     case 1:
-//                         setfaze(DOWNGhost);
-//                         break;
-//                     case 2:
-//                         setfaze(LEFTGhost);
-//                         canghostmove = false;
-//                         break;
-//                     case 3:
-//                         setfaze(RIGHTGhost);
-//                         canghostmove = false;
-//                         break;
-//                     default:
-//                         break;
-//                     }
-//                 }
-//             }
-//             break;
-//         case RIGHTGhost:
-//             if (this->getBounds(x + speedghost, y).intersects(block->getBounds()))
-//             {
-//                 int faze= round(ofRandom(0,3));
-//                 canghostmove = false;
-//                 if (faze != 3)
-//                 {
-//                     switch (faze)
-//                     {
-//                     case 0:
-//                         setfaze(UPGhost);
-//                         break;
-//                     case 1:
-//                         setfaze(DOWNGhost);
-//                         break;
-//                     case 2:
-//                         setfaze(LEFTGhost);
-//                         canghostmove = false;
-//                         break;
-//                     case 3:
-//                         setfaze(RIGHTGhost);
-//                         canghostmove = false;
-//                         break;
-//                     default:
-//                         break;
-//                     }
-//                 }
-//             }
-//             break;
-//         }
-//     }
-// }

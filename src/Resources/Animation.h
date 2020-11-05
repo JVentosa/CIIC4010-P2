@@ -5,7 +5,7 @@
 class Animation {
 
 private:
-	int speed, index;
+	unsigned int speed, index;
 	int timer;
 	std::vector<ofImage> frames;
 	bool end = false;
