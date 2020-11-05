@@ -45,21 +45,6 @@ class Ghost: public Entity{
         this->faze = faze;
     }  
 
-        bool getMortal(){return this->Mortal;}
-        void setMortal(bool a)
-        {
-            if(!Mortal) Mortal = true;
-            else Mortal = false;
-        }
-
-    private: 
-    // Movement { }
-    EntityManager* em;
-    bool canghostmove;
-    GFace gfacing = UPGhost;
-    int speedghost = 2;
-
-
 
 };
 
