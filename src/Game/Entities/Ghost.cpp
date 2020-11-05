@@ -22,6 +22,8 @@ Ghost::Ghost(int x, int y, int width, int height, ofImage spriteSheet, EntityMan
     sprite.cropFrom(sprite, 455, 95, 16, 16);
     Scared = new Animation(1, ScaredVector);
     NotScared = new Animation(1, NotScaredVector);
+
+    this->em=em;
 }
 
 void Ghost::render()

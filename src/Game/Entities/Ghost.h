@@ -17,7 +17,6 @@ class Ghost: public Entity{
     Animation *Scared;
     Animation *NotScared;
     public:
-    EntityManager* em;
     void tick();
     void setGfacing(GFace gfacing);
     void checkCollisionsGhost();
@@ -34,6 +33,7 @@ class Ghost: public Entity{
 
     private: 
     // Movement { }
+    EntityManager* em;
     bool canghostmove;
     GFace gfacing = UPGhost;
     int speedghost = 2;
