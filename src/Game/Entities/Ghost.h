@@ -2,7 +2,7 @@
 #include "Entity.h"
 #include "Animation.h"
 #include "EntityManager.h"
-#include "Player.h"
+#include "Block.h"
 
 
 enum GFace{
@@ -15,30 +15,30 @@ enum GFace{
 class Ghost: public Entity{
     bool Mortal = false;
     Animation *Scared;
-    Animation *NotScared;
-    public:
-    EntityManager* em;
-    void tick();
-    void setGfacing(GFace gfacing);
-    void checkCollisionsGhost();
-    void render();
-        Ghost(int, int, int, int, ofImage, EntityManager*);
-        
-        
-        bool getMortal(){return this->Mortal;}
-        void setMortal(bool a)
-        {
-            if(!Mortal) Mortal = true;
-            else Mortal = false;
-        }
-
-    private: 
-    // Movement { }
+    Animation *NotScaredUP;
+    Animation *NotScaredDown;
+    Animation *NotScaredLeft;
+    Animation *NotScaredRight;
     bool canghostmove;
-    GFace gfacing = UPGhost;
+    GFace faze = UPGhost;
     int speedghost = 2;
-
-
+    EntityManager* em;
+    public:
+    void tick();
+    void render();
+    void checkCollisions();
+    Ghost(int, int, int, int, ofImage, EntityManager*);    
+        
+    bool getMortal(){return this->Mortal;}
+    void setMortal(bool a)
+    {
+        if(!Mortal) Mortal = true;
+        else Mortal = false;
+    }
+    void setfaze(GFace faze)
+    {
+        this->faze = faze;
+    }  
 
 };
 

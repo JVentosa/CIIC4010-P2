@@ -1,15 +1,34 @@
 #include "Ghost.h"
-#include "EntityManager.h"
+#include "Block.h"
 Ghost::Ghost(int x, int y, int width, int height, ofImage spriteSheet, EntityManager* em) : Entity(x, y, width, height)
 {
     sprite.load("images/Background.png");
-    sprite.cropFrom(sprite, 455, 95, 16, 16);
-    vector<ofImage> NotScaredVector;
+    sprite.cropFrom(sprite, 457, 95, 16, 16);
+    vector<ofImage> NotScaredVectorLeft;
+    vector<ofImage> NotScaredVectorUp;
+    vector<ofImage> NotScaredVectorDown;
+    vector<ofImage> NotScaredVectorRight;
     for (int i = 0; i < 7; i++)
     {
         sprite.load("images/Background.png");
-        sprite.cropFrom(sprite, 455 + 14 * i, 64, 16, 16);
-        NotScaredVector.push_back(sprite);
+        sprite.cropFrom(sprite, 457 + 16 * i, 64, 16, 16);
+        NotScaredVectorRight.push_back(sprite);
+    }
+        for (int i = 0; i < 2; i++)
+    {
+        sprite.load("images/Background.png");
+        sprite.cropFrom(sprite, 489 + 16 * i, 64, 16, 16);
+        NotScaredVectorLeft.push_back(sprite);
+    }    for (int i = 0; i < 2; i++)
+    {
+        sprite.load("images/Background.png");
+        sprite.cropFrom(sprite, 521 + 16 * i, 64, 16, 16);
+        NotScaredVectorUp.push_back(sprite);
+    }    for (int i = 0; i < 2; i++)
+    {
+        sprite.load("images/Background.png");
+        sprite.cropFrom(sprite, 553 + 16 * i, 64, 16, 16);
+        NotScaredVectorDown.push_back(sprite);
     }
     vector<ofImage> ScaredVector;
     for (int i = 0; i < 3; i++)
@@ -21,173 +40,222 @@ Ghost::Ghost(int x, int y, int width, int height, ofImage spriteSheet, EntityMan
     sprite.load("images/Background.png");
     sprite.cropFrom(sprite, 455, 95, 16, 16);
     Scared = new Animation(1, ScaredVector);
-    NotScared = new Animation(1, NotScaredVector);
+    NotScaredUP = new Animation(5, NotScaredVectorUp);
+    NotScaredDown= new Animation(5, NotScaredVectorDown);
+    NotScaredLeft = new Animation(5, NotScaredVectorLeft);
+    NotScaredRight = new Animation(5, NotScaredVectorRight);
 }
 
-void Ghost::render()
-{
-    if (getMortal() == false)
+ void Ghost::render()
+{   
+    if(getMortal() == false)
     {
-        NotScared->getCurrentFrame().draw(x, y, width, height);
+        if(faze == UPGhost){
+            NotScaredUP->getCurrentFrame().draw(x, y, width, height);
+        }else if(faze == DOWNGhost){
+            NotScaredDown->getCurrentFrame().draw(x, y, width, height);
+        }else if(faze == LEFTGhost){
+            NotScaredLeft->getCurrentFrame().draw(x, y, width, height);
+        }else if(faze == RIGHTGhost){
+            NotScaredRight->getCurrentFrame().draw(x, y, width, height);
+        }
     }
     else
     {
-        Scared->getCurrentFrame().draw(x, y, width, height);
+        if(faze == UPGhost){
+            Scared->getCurrentFrame().draw(x, y, width, height);
+        }else if(faze == DOWNGhost){
+            Scared->getCurrentFrame().draw(x, y, width, height);
+        }else if(faze == LEFTGhost){
+            Scared->getCurrentFrame().draw(x, y, width, height);
+        }else if(faze == RIGHTGhost){
+            Scared->getCurrentFrame().draw(x, y, width, height);
+        }
     }
-}
-
-void Ghost::setGfacing(GFace gfacing)
-{
-    this->gfacing = gfacing;
 }
 
 void Ghost::tick()
 {
     canghostmove = true;
-    checkCollisionsGhost();
+    //checkCollisions();
     if (canghostmove)
     {
-        if (gfacing == DOWNGhost)
+        if (faze == DOWNGhost)
         {
             y += speedghost;
+            NotScaredDown->tick();
         }
-        else if (gfacing == UPGhost)
+        else if (faze == UPGhost)
         {
             y -= speedghost;
+            NotScaredUP->tick();
         }
-        else if (gfacing == LEFTGhost)
+        else if (faze == LEFTGhost)
         {
             x -= speedghost;
+            NotScaredLeft->tick();
         }
-        else if (gfacing == RIGHTGhost)
+        else if (faze == RIGHTGhost)
         {
             x += speedghost;
+            NotScaredRight->tick();
         }
     }
 }
 
-void Ghost::checkCollisionsGhost()
-{
-    for (Block* block: em->blocks)
-    {
-        switch (gfacing)
-        {
-        case UPGhost:
-            if (this->getBounds(x, y - speedghost).intersects(block->getBounds()))
-            {
-                int facing = round(ofRandom(0,3));
-                canghostmove = false;
-                if (facing != 0)
-                {
-                    switch (facing)
-                    {
-                    case 0:
-                        setGfacing(UPGhost);
-                        break;
-                    case 1:
-                        setGfacing(DOWNGhost);
-                        canghostmove = false;
-                        break;
-                    case 2:
-                        setGfacing(LEFTGhost);
-                        break;
-                    case 3:
-                        setGfacing(RIGHTGhost);
-                        break;
-                    default:
-                        break;
-                    }
+void Ghost::checkCollisions(){
+    for(Block* blockis: em->blocks){
+        switch(faze){
+            case UPGhost:
+                if(this->getBounds(x, y-speedghost).intersects(blockis->getBounds())){
+                    canghostmove = false;
                 }
-            }
-            break;
-        case DOWNGhost:
-            if (this->getBounds(x, y+speedghost).intersects(block->getBounds()))
-            {
-                int facing = round(ofRandom(0,3));
-                canghostmove = false;
-                if (facing != 1)
-                {
-                    switch (facing)
-                    {
-                    case 0:
-                        setGfacing(UPGhost);
-                        canghostmove = false;
-                        break;
-                    case 1:
-                        setGfacing(DOWNGhost);
-                        canghostmove = false;
-                        break;
-                    case 2:
-                        setGfacing(LEFTGhost);
-                        break;
-                    case 3:
-                        setGfacing(RIGHTGhost);
-                        break;
-
-                    default:
-                        break;
-                    }
+                break;
+            case DOWNGhost:
+                if(this->getBounds(x, y+speedghost).intersects(blockis->getBounds())){
+                    canghostmove = false;
                 }
-            }
-            break;
-        case LEFTGhost:
-            if (this->getBounds(x-speedghost, y).intersects(block->getBounds()))
-            {
-                int facing = round(ofRandom(0,3));
-                canghostmove = false;
-                if (facing != 2)
-                {
-                    switch (facing)
-                    {
-                    case 0:
-                        setGfacing(UPGhost);
-                        break;
-                    case 1:
-                        setGfacing(DOWNGhost);
-                        break;
-                    case 2:
-                        setGfacing(LEFTGhost);
-                        canghostmove = false;
-                        break;
-                    case 3:
-                        setGfacing(RIGHTGhost);
-                        canghostmove = false;
-                        break;
-                    default:
-                        break;
-                    }
+                break;
+            case LEFTGhost:
+                if(this->getBounds(x-speedghost, y).intersects(blockis->getBounds())){
+                    canghostmove = false;
                 }
-            }
-            break;
-        case RIGHTGhost:
-            if (this->getBounds(x + speedghost, y).intersects(block->getBounds()))
-            {
-                int facing = round(ofRandom(0,3));
-                canghostmove = false;
-                if (facing != 3)
-                {
-                    switch (facing)
-                    {
-                    case 0:
-                        setGfacing(UPGhost);
-                        break;
-                    case 1:
-                        setGfacing(DOWNGhost);
-                        break;
-                    case 2:
-                        setGfacing(LEFTGhost);
-                        canghostmove = false;
-                        break;
-                    case 3:
-                        setGfacing(RIGHTGhost);
-                        canghostmove = false;
-                        break;
-                    default:
-                        break;
-                    }
+                break;
+            case RIGHTGhost:
+                if(this->getBounds(x+speedghost, y).intersects(blockis->getBounds())){
+                    canghostmove = false;
                 }
-            }
-            break;
+                break;
         }
     }
 }
+
+
+
+
+
+// void Ghost::checkCollisions()
+// {
+//     for (Block* block: em->blocks)
+//     {
+//         switch (faze)
+//         {
+//         case UPGhost:
+//             if (this->getBounds(x, y - speedghost).intersects(block->getBounds()))
+//             {
+//                 int faze = round(ofRandom(0,3));
+//                 canghostmove = false;
+//                 if (faze != 0)
+//                 {
+//                     switch (faze)
+//                     {
+//                     case 0:
+//                         setfaze(UPGhost);
+//                         break;
+//                     case 1:
+//                         setfaze(DOWNGhost);
+//                         canghostmove = false;
+//                         break;
+//                     case 2:
+//                         setfaze(LEFTGhost);
+//                         break;
+//                     case 3:
+//                         setfaze(RIGHTGhost);
+//                         break;
+//                     default:
+//                         break;
+//                     }
+//                 }
+//             }
+//             break;
+//         case DOWNGhost:
+//             if (this->getBounds(x, y+speedghost).intersects(block->getBounds()))
+//             {
+//                 int faze = round(ofRandom(0,3));
+//                 canghostmove = false;
+//                 if (faze != 1)
+//                 {
+//                     switch (faze)
+//                     {
+//                     case 0:
+//                         setfaze(UPGhost);
+//                         canghostmove = false;
+//                         break;
+//                     case 1:
+//                         setfaze(DOWNGhost);
+//                         canghostmove = false;
+//                         break;
+//                     case 2:
+//                         setfaze(LEFTGhost);
+//                         break;
+//                     case 3:
+//                         setfaze(RIGHTGhost);
+//                         break;
+
+//                     default:
+//                         break;
+//                     }
+//                 }
+//             }
+//             break;
+//         case LEFTGhost:
+//             if (this->getBounds(x-speedghost, y).intersects(block->getBounds()))
+//             {
+//                 int faze = round(ofRandom(0,3));
+//                 canghostmove = false;
+//                 if (faze != 2)
+//                 {
+//                     switch (faze)
+//                     {
+//                     case 0:
+//                         setfaze(UPGhost);
+//                         break;
+//                     case 1:
+//                         setfaze(DOWNGhost);
+//                         break;
+//                     case 2:
+//                         setfaze(LEFTGhost);
+//                         canghostmove = false;
+//                         break;
+//                     case 3:
+//                         setfaze(RIGHTGhost);
+//                         canghostmove = false;
+//                         break;
+//                     default:
+//                         break;
+//                     }
+//                 }
+//             }
+//             break;
+//         case RIGHTGhost:
+//             if (this->getBounds(x + speedghost, y).intersects(block->getBounds()))
+//             {
+//                 int faze= round(ofRandom(0,3));
+//                 canghostmove = false;
+//                 if (faze != 3)
+//                 {
+//                     switch (faze)
+//                     {
+//                     case 0:
+//                         setfaze(UPGhost);
+//                         break;
+//                     case 1:
+//                         setfaze(DOWNGhost);
+//                         break;
+//                     case 2:
+//                         setfaze(LEFTGhost);
+//                         canghostmove = false;
+//                         break;
+//                     case 3:
+//                         setfaze(RIGHTGhost);
+//                         canghostmove = false;
+//                         break;
+//                     default:
+//                         break;
+//                     }
+//                 }
+//             }
+//             break;
+//         }
+//     }
+// }
