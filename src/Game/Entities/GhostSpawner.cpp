@@ -210,7 +210,7 @@ void GhostSpawner::checkCollisions1()
             if (this->getBounds(x, y - speedghost1).intersects(block->getBounds()))
             {
                 int faze1 = round(ofRandom(0,3));
-                if(count1 == 0) faze1 = 3;
+                if(count1 == 0) faze1 = 2;
                 count1 += 1;
                 canghostmove1 = false;
                 if (faze1 != 0)

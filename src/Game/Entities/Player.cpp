@@ -246,7 +246,7 @@ void Player::checkCollisions(){
                         //Timer to make ghosts edible
                         //Make ghosts edible
             }
-            if(dynamic_cast<Ghost*>(entity)) // Ghost collision
+            if(dynamic_cast<Ghost*>(entity) || dynamic_cast<GhostSpawner*>(entity)) // Ghost collision
             {
                 if(mySound2.isPlaying())
                 {
