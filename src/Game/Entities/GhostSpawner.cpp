@@ -2,6 +2,7 @@
 
 GhostSpawner::GhostSpawner(int x, int y, int width, int height,ofImage spriteSheet,int color, EntityManager* em) : Ghost(x, y, width, height, spriteSheet, em)
 {
+    vector <ofImage> NotScaredVector;
     vector <ofImage> ScaredVector;
     vector<ofImage> NotScaredVectorLeft1;
     vector<ofImage> NotScaredVectorUp1;
@@ -112,6 +113,8 @@ GhostSpawner::GhostSpawner(int x, int y, int width, int height,ofImage spriteShe
     NotScaredDown1= new Animation(5, NotScaredVectorDown1);
     NotScaredLeft1 = new Animation(5, NotScaredVectorLeft1);
     NotScaredRight1 = new Animation(5, NotScaredVectorRight1);
+
+    NotScared = new Animation(1,NotScaredVector);
     this->em = em;
 }
  void GhostSpawner::render()
