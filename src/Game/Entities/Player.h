@@ -45,6 +45,10 @@ class Player: public Entity{
         void die();
         ofSoundPlayer   mySound;
         ofSoundPlayer   mySound2;
+        ofSoundPlayer dead;
+        ofSoundPlayer ghost;
+        ofSoundPlayer life;
+        ofSoundPlayer low;
 
         void setScore(int n){this->score = n;}
         void setHealth(int n){this->health = n;}

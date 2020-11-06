@@ -8,12 +8,13 @@ private:
 	ofImage img1;
 	Button *startButton;
 	ofImage background;
+	long int score;
 
 public:
-	int score;
+	
 	
 	OverState();
-    void setFinalScore(int finalScore);
+    void setFinalScore(int score);
 	void tick();
 	void render();
 	void keyPressed(int key);

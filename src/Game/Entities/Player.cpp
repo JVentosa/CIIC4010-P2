@@ -48,6 +48,8 @@ void Player::die(){
         this->x = 312;
         this->y = 624;
         canMove = true;
+        dead.load("pacmandying.mp3");
+        dead.play();
     }
 }
 
@@ -68,6 +70,9 @@ void Player::tick(){
             x+=speed;
             walkRight->tick();
         }
+    }
+    if(getHealth() == 0){
+        mySound2.stop();
     }
 }
 
@@ -159,9 +164,13 @@ void Player::keyPressed(int key)
             {
                 health -= 100; // Increase health by 1 when m is prissed
             }
+            low.load("pacman_low.mp3");
+            low.play();
             break;
         case 'm':
             health += 100; // Increase health by 1 when m is prissed
+            life.load("pacman_life.mp3");
+            life.play();
             break;
         case 'p':
             mySound2.load("super-mario-bros-nes-music-star-theme-cut-mp3.mp3");//for test ghost death
@@ -243,6 +252,8 @@ void Player::checkCollisions(){
                 {
                     entity->remove = true;
                     setScore(Player::getScore() + 50);
+                    ghost.load("pacman_ghost.mp3");
+                    ghost.play();
                 }
                 else die();
             }

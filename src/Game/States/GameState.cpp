@@ -11,9 +11,12 @@ void GameState::tick() {
 		dying.play();
 		setNextState("GameOver");
 		setFinished(true);
+		finalScore = map->getPlayer()->getScore();
 		map->getPlayer()->setHealth(500);
 		map->getPlayer()->setScore(0);
+		map = MapBuilder().createMap(mapImage);
 	}
+
 	map->tick();
 }
 int GameState::getScore(){
