@@ -256,7 +256,6 @@ void Player::checkCollisions(){
                     em->entities.push_back(en);
                     if(color == 4) color = 0;
                     color += 1;
-                    dynamic_cast<Ghost*>(entity)->setMortal();
                     ghost.load("pacman_ghost.mp3");
                     ghost.play();
                 }

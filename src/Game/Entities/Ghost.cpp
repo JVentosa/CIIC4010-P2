@@ -146,7 +146,7 @@ void Ghost::checkCollisions()
             if (this->getBounds(x, y - speedghost).intersects(block->getBounds()))
             {
                 int faze = round(ofRandom(0,3));
-                if(count == 0) faze = 3;
+                if(count == 0) faze = 2;
                 count += 1;
                 canghostmove = false;
                 if (faze != 0)

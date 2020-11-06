@@ -1,6 +1,7 @@
 #include "GhostSpawner.h"
+#include "Player.h"
 
-GhostSpawner::GhostSpawner(int x, int y, int width, int height,ofImage spriteSheet,int color, EntityManager* em) : Ghost(x, y, width, height, spriteSheet, em)
+GhostSpawner::GhostSpawner(int x, int y, int width, int height,ofImage spriteSheet,int color, EntityManager* em) : Entity(x, y, width, height)
 {
     vector <ofImage> NotScaredVector;
     vector <ofImage> ScaredVector;
@@ -210,7 +211,7 @@ void GhostSpawner::checkCollisions1()
             if (this->getBounds(x, y - speedghost1).intersects(block->getBounds()))
             {
                 int faze1 = round(ofRandom(0,3));
-                if(count1 == 0) faze1 = 2;
+                if(count1 == 0) faze1 = 3;
                 count1 += 1;
                 canghostmove1 = false;
                 if (faze1 != 0)

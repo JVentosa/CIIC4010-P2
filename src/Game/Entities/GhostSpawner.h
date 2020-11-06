@@ -2,6 +2,7 @@
 #include "EntityManager.h"
 #include "Entity.h"
 #include "Ghost.h"
+#include "Player.h"
 
 enum GFace1{
     UPGhost1,
@@ -12,8 +13,9 @@ enum GFace1{
 
 
 
-class GhostSpawner : public Ghost
+class GhostSpawner : public Entity
 {  
+    bool Mortal = false;
     int count1 = 0;
     int speedghost1 = 2;
     bool canghostmove1 = true;
@@ -29,6 +31,7 @@ class GhostSpawner : public Ghost
     void render();
     void checkCollisions1();
     void tick();
+    bool getMortal(){return this->Mortal;}
     GhostSpawner(int, int, int , int,ofImage,int, EntityManager*);
     void setfaze1(GFace1 faze1)
     {
