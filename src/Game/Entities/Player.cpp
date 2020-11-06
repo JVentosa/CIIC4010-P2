@@ -252,6 +252,11 @@ void Player::checkCollisions(){
                 {
                     entity->remove = true;
                     setScore(Player::getScore() + 50);
+                    GhostSpawner* en = new GhostSpawner(504, 368, width, height, sprite, color, em);
+                    em->entities.push_back(en);
+                    if(color == 4) color = 0;
+                    color += 1;
+                    dynamic_cast<Ghost*>(entity)->setMortal();
                     ghost.load("pacman_ghost.mp3");
                     ghost.play();
                 }

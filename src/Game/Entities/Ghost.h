@@ -3,6 +3,7 @@
 #include "Animation.h"
 #include "EntityManager.h"
 #include "Block.h"
+#include "Player.h"
 
 
 enum GFace{
@@ -15,7 +16,7 @@ enum GFace{
 class Ghost: public Entity{
     bool Mortal = false;
     Animation *Scared;
-
+    int count = 0;
     Animation *NotScaredUP;
     Animation *NotScaredDown;
     Animation *NotScaredLeft;
@@ -35,7 +36,7 @@ class Ghost: public Entity{
         
 
     bool getMortal(){return this->Mortal;}
-    void setMortal(bool a)
+    void setMortal()
     {
         if(!Mortal) Mortal = true;
         else Mortal = false;

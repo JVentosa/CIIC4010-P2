@@ -1,14 +1,16 @@
 #include "Ghost.h"
 #include "Block.h"
+#include "Player.h"
 Ghost::Ghost(int x, int y, int width, int height, ofImage spriteSheet, EntityManager* em) : Entity(x, y, width, height)
 {
+    
     sprite.load("images/Background.png");
     sprite.cropFrom(sprite, 457, 95, 16, 16);
     vector<ofImage> NotScaredVectorLeft;
     vector<ofImage> NotScaredVectorUp;
     vector<ofImage> NotScaredVectorDown;
     vector<ofImage> NotScaredVectorRight;
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < 2; i++)
     {
         sprite.load("images/Background.png");
         sprite.cropFrom(sprite, 457 + 16 * i, 64, 16, 16);
@@ -34,13 +36,10 @@ Ghost::Ghost(int x, int y, int width, int height, ofImage spriteSheet, EntityMan
     for (int i = 0; i < 3; i++)
     {
         sprite.load("images/Background.png");
-        sprite.cropFrom(sprite, 583 + 14 * i, 95, 16, 16);
+        sprite.cropFrom(sprite, 585 + 16 * i, 64, 16, 16);
         ScaredVector.push_back(sprite);
     }
-    sprite.load("images/Background.png");
-    sprite.cropFrom(sprite, 455, 95, 16, 16);
-    Scared = new Animation(1, ScaredVector);
-
+    Scared = new Animation(5, ScaredVector);
     NotScaredUP = new Animation(5, NotScaredVectorUp);
     NotScaredDown= new Animation(5, NotScaredVectorDown);
     NotScaredLeft = new Animation(5, NotScaredVectorLeft);
@@ -88,22 +87,46 @@ void Ghost::tick()
         if (faze == DOWNGhost)
         {
             y += speedghost;
+            if(getMortal()== false)
+            {
             NotScaredDown->tick();
+            }else
+            {
+                Scared->tick();
+            }
         }
         else if (faze == UPGhost)
         {
             y -= speedghost;
+            if(getMortal()== false)
+            {
             NotScaredUP->tick();
+            }else
+            {
+                Scared->tick();
+            }
         }
         else if (faze == LEFTGhost)
         {
             x -= speedghost;
+            if(getMortal()== false)
+            {
             NotScaredLeft->tick();
+            }else
+            {
+                Scared->tick();
+            }
         }
         else if (faze == RIGHTGhost)
         {
             x += speedghost;
+            if(getMortal()== false)
+            {
             NotScaredRight->tick();
+            }else
+            {
+                Scared->tick();
+            }
         }
     }
 }
@@ -123,6 +146,8 @@ void Ghost::checkCollisions()
             if (this->getBounds(x, y - speedghost).intersects(block->getBounds()))
             {
                 int faze = round(ofRandom(0,3));
+                if(count == 0) faze = 3;
+                count += 1;
                 canghostmove = false;
                 if (faze != 0)
                 {
