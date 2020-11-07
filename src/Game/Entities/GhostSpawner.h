@@ -33,6 +33,11 @@ class GhostSpawner : public Entity
     void tick();
     bool getMortal(){return this->Mortal;}
     GhostSpawner(int, int, int , int,ofImage,int, EntityManager*);
+    void setMortal()
+    {
+        if(!Mortal) Mortal = true;
+        else Mortal = false;
+    }
     void setfaze1(GFace1 faze1)
     {
         this->faze1 = faze1;
