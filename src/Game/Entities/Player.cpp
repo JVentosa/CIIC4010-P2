@@ -77,7 +77,8 @@ void Player::tick(){
 }
 
 void Player::render(){
-    if (Player::getHealth() <= 500)/*This switch is for show the player the life of pacman
+    if (Player::getHealth() <= 500)
+    /*This switch is for show the player the life of pacman
     and if pacman has more than five lifes is representated by a plus sign*/
     {
         switch (Player::getHealth())
@@ -130,7 +131,7 @@ void Player::render(){
     ofDrawBitmapString("Score:" + to_string(Player::getScore()),50,20);
     ofDrawBitmapString("Health:",730,20);
     ofSetColor(256,256,256);
-    // ofDrawRectangle(getBounds());
+
     if(facing == UP){
         walkUp->getCurrentFrame().draw(x, y, width, height);
         
@@ -182,7 +183,7 @@ void Player::keyPressed(int key)
             if(color == 4) color = 0;
             color += 1;
             break;
-            //Tengo que añadir el ghost spawnmer 
+
     }
 }
 
@@ -243,8 +244,7 @@ void Player::checkCollisions(){
                 mySound.play();
                 mySound2.load("super-mario-bros-nes-music-star-theme-cut-mp3.mp3");
                 mySound2.play();
-                        //Timer to make ghosts edible
-                        //Make ghosts edible
+
             }
             if(dynamic_cast<Ghost*>(entity) || dynamic_cast<GhostSpawner*>(entity)) // Ghost collision
             {
@@ -261,9 +261,6 @@ void Player::checkCollisions(){
                 }
                 else die();
             }
-                // Allow pacman to eat ghost on collision during edible phase
-                 //TIMER TO MAKE GHOSTS RESPAWN AFTER COLLISION DURING EDIBLE PHASE 
-
         }
     }
     
