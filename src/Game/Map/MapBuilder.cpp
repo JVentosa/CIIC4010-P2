@@ -61,15 +61,6 @@ Map* MapBuilder::createMap(ofImage mapImage){
             }else if(currentPixel == pacman){
                 Player* PacMan = new Player(xPos,yPos,pixelMultiplier,pixelMultiplier, entityManager);
 				mapInCreation->setPlayer(PacMan);
-            }else if(currentPixel == ghostC){
-                Ghost* ghost = new Ghost(xPos,yPos,pixelMultiplier,pixelMultiplier,pacmanSpriteSheet, entityManager);
-                mapInCreation->addEntity(ghost);
-				GhostSpawner* ghost1 = new GhostSpawner(xPos,yPos,pixelMultiplier,pixelMultiplier,pacmanSpriteSheet, 1,entityManager);
-				mapInCreation->addEntity(ghost1);
-				GhostSpawner* ghost2 = new GhostSpawner(xPos,yPos,pixelMultiplier,pixelMultiplier,pacmanSpriteSheet, 2,entityManager);
-				mapInCreation->addEntity(ghost2);
-				GhostSpawner* ghost3 = new GhostSpawner(xPos,yPos,pixelMultiplier,pixelMultiplier,pacmanSpriteSheet, 3,entityManager);
-				mapInCreation->addEntity(ghost3);
             }else if(currentPixel == dotC){
                 Dot* dot = new Dot(xPos,yPos,pixelMultiplier,pixelMultiplier, pacmanSpriteSheet);
                 mapInCreation->addEntity(dot);
@@ -80,6 +71,23 @@ Map* MapBuilder::createMap(ofImage mapImage){
         }
 
     }
+    for (int i = 0; i < mapImage.getWidth(); i++) {
+        for (int j = 0; j < mapImage.getHeight(); j++)
+		{   ofColor currentPixel = pixels.getColor(i, j);
+            int xPos = i*pixelMultiplier + xOffset;
+            int yPos = j*pixelMultiplier + yOffset;
+			if(currentPixel == ghostC){
+                Ghost* ghost = new Ghost(xPos,yPos,pixelMultiplier,pixelMultiplier,pacmanSpriteSheet, entityManager);
+                mapInCreation->addEntity(ghost);
+				GhostSpawner* ghost1 = new GhostSpawner(xPos,yPos,pixelMultiplier,pixelMultiplier,pacmanSpriteSheet, 1,entityManager);
+				mapInCreation->addEntity(ghost1);
+				GhostSpawner* ghost2 = new GhostSpawner(xPos,yPos,pixelMultiplier,pixelMultiplier,pacmanSpriteSheet, 2,entityManager);
+				mapInCreation->addEntity(ghost2);
+				GhostSpawner* ghost3 = new GhostSpawner(xPos,yPos,pixelMultiplier,pixelMultiplier,pacmanSpriteSheet, 3,entityManager);
+				mapInCreation->addEntity(ghost3);
+            }
+		}
+	}
     return mapInCreation;
 
 }

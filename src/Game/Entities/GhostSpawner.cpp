@@ -83,7 +83,6 @@ GhostSpawner::GhostSpawner(int x, int y, int width, int height,ofImage spriteShe
         NotScaredVectorDown1.push_back(sprite);
     } 
         break;
-                break;
         case 4:
     for (int i = 0; i < 2; i++)
     {
